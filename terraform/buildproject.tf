@@ -66,6 +66,10 @@ data "aws_iam_policy_document" "build_project_policy_document" {
       "kms:*",
       "ssm:*",
       "dynamodb:*",
+      "iam:GetRole",
+      "codestar:GetConnection",
+      "ec2:DescribeAddresses",
+      "ec2:DescribeVpcs"
     ]
 
     resources = [
