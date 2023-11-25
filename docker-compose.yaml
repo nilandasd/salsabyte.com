@@ -1,0 +1,22 @@
+services:
+  mongodb:
+    container_name: mongo
+    image: 'mongo'
+    env_file:
+      - ./.env
+  selenium:
+    container_name: selenium
+    image: 'selenium/standalone-chrome'
+  backend:
+    container_name: node
+    build: .
+    ports:
+      - '8080:80'
+      - '9229:9229'
+    volumes:
+      - ./src:/app/src
+    env_file:
+      - ./.env
+    depends_on:
+      - mongodb
+      - selenium
