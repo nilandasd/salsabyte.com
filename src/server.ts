@@ -1,4 +1,4 @@
-import connectMongo from './config/mongo';
+import connectToMongo from './config/mongo';
 import app from './app';
 import { Application } from 'express';
 import http, { Server as HttpServer } from 'http';
@@ -15,7 +15,7 @@ class Server {
   }
 
   async start() {
-    await connectMongo;
+    // await connectToMongo;
     // tslint:disable-next-line:no-console
     console.log('connected to mongo');
 

@@ -9,7 +9,9 @@ services:
     image: 'selenium/standalone-chrome'
   backend:
     container_name: node
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     ports:
       - '8080:80'
       - '9229:9229'
