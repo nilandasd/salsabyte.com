@@ -65,6 +65,12 @@ data "aws_iam_policy_document" "build_project_policy_document" {
       "s3:*",
       "kms:*",
       "ssm:*",
+      "ecr:BatchCheckLayerAvailability",
+      "ecr:CompleteLayerUpload",
+      "ecr:GetAuthorizationToken",
+      "ecr:InitiateLayerUpload",
+      "ecr:PutImage",
+      "ecr:UploadLayerPart"
     ]
 
     resources = [
