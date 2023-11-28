@@ -1,4 +1,5 @@
 import connectToMongo from './config/mongo';
+import { Mongoose } from 'mongoose';
 import app from './app';
 import { Application } from 'express';
 import http, { Server as HttpServer } from 'http';
@@ -7,6 +8,7 @@ class Server {
   app: Application;
   server: HttpServer;
   port: number;
+  db: Mongoose;
 
   constructor(app: Application) {
     this.app = app;
@@ -15,9 +17,9 @@ class Server {
   }
 
   async start() {
-    // await connectToMongo;
+    this.db = await connectToMongo;
     // tslint:disable-next-line:no-console
-    // console.log('connected to mongo');
+    console.log('connected to mongo');
 
     return new Promise((resolve, reject) => {
         try {
@@ -38,6 +40,7 @@ class Server {
 
   async stop() {
     this.server.close();
+    await this.db.disconnect();
   }
 }
 
