@@ -3,19 +3,19 @@ import app from './app';
 import { Application } from 'express';
 import http, { Server as HttpServer } from 'http';
 
-const port = process.env.SERVER_PORT;
-
 class Server {
   app: Application;
   server: HttpServer;
+  port: number;
 
   constructor(app: Application) {
     this.app = app;
+    this.port = parseInt(process.env.SERVER_PORT);
     this.server = null;
   }
 
   async start() {
-    // await connectToMongo;
+    await connectToMongo;
     // tslint:disable-next-line:no-console
     console.log('connected to mongo');
 
@@ -23,9 +23,9 @@ class Server {
         try {
           this.server = http.createServer(app);
 
-          this.server.listen(port, () => {
+          this.server.listen(this.port, () => {
               // tslint:disable-next-line:no-console
-              console.log( `server started at http://localhost:${ port }` );
+              console.log( `server started at http://localhost:${ this.port }` );
               resolve(null);
           });
         } catch(err: any) {

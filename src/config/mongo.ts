@@ -1,9 +1,8 @@
 import mongoose from "mongoose";
 
 async function connectToMongo() {
-  const mongoUri = `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@mongodb:27017/test?authSource=admin`;
+  const mongoUri = `mongodb://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@mongodb:27017/test?authSource=admin`;
 
-    return
   try {
     return await mongoose.connect(mongoUri);
   } catch (err: any) {

@@ -1,24 +1,28 @@
 services:
   mongodb:
     container_name: mongo
-    image: 'mongo'
-    env_file:
-      - ./.env
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root 
+      - MONGO_INITDB_ROOT_PASSWORD=secret
   selenium:
     container_name: selenium
-    image: 'selenium/standalone-chrome'
+    image: selenium/standalone-chrome
   backend:
-    container_name: node
+    container_name: backend
     build:
       context: .
       dockerfile: Dockerfile.dev
+    environment:
+      - MONGO_USERNAME=root 
+      - MONGO_PASSWORD=secret
+      - SERVER_PORT=8080
+      - SELENIUM_REMOTE_URL=http://selenium:4444
     ports:
-      - '8080:80'
-      - '9229:9229'
+      - 8080:8080
+      - 9229:9229
     volumes:
       - ./src:/app/src
-    env_file:
-      - ./.env
     depends_on:
       - mongodb
       - selenium
