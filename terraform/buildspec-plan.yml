@@ -12,16 +12,11 @@ phases:
       - echo Logging in to Amazon ECR...
       - AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
-      - echo Installing docker compose...
-      - buildDOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
-      - mkdir -p $DOCKER_CONFIG/cli-plugins
-      - curl -SL https://github.com/docker/compose/releases/download/v2.23.3/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose
-      - chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
   build:
     commands:
       - echo Build started on `date`
       - echo Running tests...
-      - docker compose up --exit-code-from backend
+      - docker-compose --exit-code-from backend up
       - echo Building the Docker image...          
       - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
       - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG      
