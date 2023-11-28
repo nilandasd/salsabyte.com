@@ -24,6 +24,6 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Shutting down test environment...
-      - docker compose down
+      - docker-compose down
       - echo Pushing the Docker image...
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
