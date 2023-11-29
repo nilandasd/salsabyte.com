@@ -42,6 +42,17 @@ resource "aws_autoscaling_policy" "backend" {
 
 resource "aws_launch_template" "backend" {
   name                   = "backend"
-  image_id               = "ami-0230bd60aa48260c6"
+  image_id               = data.aws_ami.al2023.id
   vpc_security_group_ids = [aws_security_group.ec2.id]
+}
+
+data "aws_ami" "al2023" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["al2023-ami-2023*"]
+  }
+
+  owners = ["137112412989"]
 }
