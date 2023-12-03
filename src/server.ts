@@ -39,8 +39,8 @@ class Server {
   }
 
   async stop() {
+    if (this.db != undefined) await this.db.disconnect();
     this.server.close();
-    await this.db.disconnect();
   }
 }
 
