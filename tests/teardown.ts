@@ -1,8 +1,7 @@
-import mongoose from "mongoose";
+import db from '../src/db';
 
 const teardown = async function() {
-  await mongoose.connection.db.dropDatabase();
-  await mongoose.connection.close();
+  await db.teardown();
 }
 
 export default teardown;

@@ -1,7 +1,7 @@
-import connectToMongo from '../src/config/mongo';
+import db from '../src/db';
 
 const setup = async function() {
-  await connectToMongo();
+  await db.connect();
 }
 
 export default setup;
