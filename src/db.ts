@@ -26,7 +26,10 @@ class DB {
   }
 
   async disconnect() {
-    await this.conn.disconnect();
+    this.conn.connections.forEach(async con => {
+      await con.close();
+    });
+    await mongoose.disconnect();
   }
 }
 

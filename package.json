@@ -15,7 +15,7 @@
     "debug:start": "node --inspect .",
     "exec": "node .",
     "start": "npm-run-all clean tsc copy-assets exec",
-    "test": "jest --coverage"
+    "test": "jest --coverage --detectOpenHandles"
   },
   "author": "lando",
   "license": "ISC",
