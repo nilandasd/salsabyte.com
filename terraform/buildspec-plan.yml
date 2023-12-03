@@ -19,7 +19,7 @@ phases:
     commands:
       - cd ${CODEBUILD_SRC_DIR}
       - echo Running tests...
-      - docker-compose run --use-aliases --rm backend
+      - docker-compose run --use-aliases --rm --build backend
       - echo Shutting down test environment...
       - docker-compose down
   build:
