@@ -1,20 +1,24 @@
 import mongoose, { Mongoose } from "mongoose";
+import { MongoMemoryServer } from 'mongodb-memory-server';
 
 class DB {
   uri: string;
-  connection: Mongoose;
-  connected: boolean;
-  constructor() {
-    this.uri = `mongodb://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@mongodb:27017/test?authSource=admin`;
+  conn: Mongoose;
+
+  async setUri() {
+    switch (process.env.ENV) {
+      case "PROD": this.uri = `mongodb://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@mongodb:27017/test?authSource=admin`;
+      case "TEST": this.uri = (await MongoMemoryServer.create()).getUri();
+    }
   }
 
   async connect() {
-    if (process.env.NO_DB || this.connected) return;
+    if (this.uri == null) await this.setUri();
 
     try {
-      this.connection = await mongoose.connect(this.uri);
+      this.conn = await mongoose.connect(this.uri);
       // tslint:disable-next-line:no-console
-      console.error("Connected to database");
+      console.log("Connected to database");
     } catch (err: any) {
       // tslint:disable-next-line:no-console
       console.error(err);
@@ -22,16 +26,7 @@ class DB {
   }
 
   async disconnect() {
-    await this.connection.disconnect();
-  }
-
-  async teardown() {
-    await this.destroy();
-    await this.disconnect();
-  }
-
-  async destroy() {
-    await this.connection.connection.db.dropDatabase();
+    await this.conn.disconnect();
   }
 }
 

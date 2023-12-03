@@ -7,6 +7,6 @@ COPY . .
 RUN npm install
 
 ENV SERVER_PORT=8080
-ENV TEST=true
+ENV ENV=PROD
 
 CMD ["npm", "start"]
