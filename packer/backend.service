@@ -1,0 +1,12 @@
+[Unit]
+Description=Backend SalsaByte container
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/docker run -a STDOUT -p 8080:8080 --name backend backend
+ExecStop=/usr/bin/docker stop -t 2 backend
+
+[Install]
+WantedBy=default.target

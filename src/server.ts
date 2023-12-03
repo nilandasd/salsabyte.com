@@ -17,9 +17,9 @@ class Server {
   }
 
   async start() {
-    this.db = await connectToMongo;
+    // this.db = await connectToMongo;
     // tslint:disable-next-line:no-console
-    console.log('connected to mongo');
+    // console.log('connected to mongo');
 
     return new Promise((resolve, reject) => {
         try {

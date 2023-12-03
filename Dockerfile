@@ -4,7 +4,8 @@ WORKDIR /app
 
 COPY . .
 
-EXPOSE 80
+RUN npm install
+
 ENV SERVER_PORT=8080
 
 CMD ["npm", "start"]

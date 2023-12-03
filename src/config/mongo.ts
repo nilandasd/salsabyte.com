@@ -11,4 +11,4 @@ async function connectToMongo() {
   }
 }
 
-export default connectToMongo();
+export default connectToMongo;
