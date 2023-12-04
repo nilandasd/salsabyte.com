@@ -38,6 +38,7 @@ class Server {
 
   async stop() {
     this.server.close();
+    this.db.disconnect();
   }
 }
 
