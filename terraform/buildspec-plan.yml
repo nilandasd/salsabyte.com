@@ -12,7 +12,7 @@ phases:
     commands:
       # install packer
       - echo "Installing HashiCorp Packer..."
-      - curl -qL -o packer.zip https://releases.hashicorp.com/packer/0.12.3/packer_0.12.3_linux_amd64.zip && unzip packer.zip -d ./packer
+      - curl -qL -o packer.zip https://releases.hashicorp.com/packer/1.9.0/packer_1.9.0_linux_amd64.zip && unzip packer.zip -d ./packer
         #- echo "Installing jq..."
         #- curl -qL -o jq https://stedolan.github.io/jq/download/linux64/jq && chmod +x ./jq
       # Give Packer AWS credentials
@@ -24,7 +24,7 @@ phases:
       #- aws configure set aws_secret_access_key `./jq -r '.SecretAccessKey' aws_credentials.json`
       #- aws configure set aws_session_token `./jq -r '.Token' aws_credentials.json`
       - echo Building AMI...
-      - ./packer/packer build --force packer
+      - ./packer/packer build --force packer/backend.pkr.hcl
   pre_build:
     on-failure: ABORT
     commands:
