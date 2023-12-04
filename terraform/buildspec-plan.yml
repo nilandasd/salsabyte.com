@@ -28,9 +28,9 @@ phases:
     commands:
       - echo Building AMI...
       - packer build --force packer
-      - packer/launch_template.sh
+
+      - bash ./packer/launch_template.sh
   post_build:
     on-failure: ABORT
     commands:
       - echo Triggering ASG instance refresh...
-      - packer/instance_refresh.sh
