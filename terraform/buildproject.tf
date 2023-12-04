@@ -70,6 +70,9 @@ data "aws_iam_policy_document" "build_project_policy_document" {
       "s3:*",
       "kms:*",
       "ssm:*",
+      "autoscaling:StartInstanceRefresh",
+      "autoscaling:Describe*",
+      "autoscaling:UpdateAutoScalingGroup",
       "ec2:AttachVolume",
       "ec2:AuthorizeSecurityGroupIngress",
       "ec2:CopyImage",
@@ -79,6 +82,7 @@ data "aws_iam_policy_document" "build_project_policy_document" {
       "ec2:CreateSnapshot",
       "ec2:CreateTags",
       "ec2:CreateVolume",
+      "ec2:CreateLaunchTemplateVersion",
       "ec2:DeleteKeyPair",
       "ec2:DeleteSecurityGroup",
       "ec2:DeleteSnapshot",
@@ -104,8 +108,6 @@ data "aws_iam_policy_document" "build_project_policy_document" {
       "ec2:StopInstances",
       "ec2:TerminateInstances"
     ]
-
     resources = ["*"]
   }
 }
-

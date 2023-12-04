@@ -42,15 +42,15 @@ resource "aws_launch_template" "backend" {
   image_id               = data.aws_ami.al2023.id
   instance_type          = "t3.micro"
   vpc_security_group_ids = [aws_security_group.ec2.id]
+  update_default_version = true
 }
 
 data "aws_ami" "al2023" {
   most_recent = true
+  owners = ["self"]
 
   filter {
     name   = "name"
     values = ["backend"]
   }
-
-  owners = ["self"]
 }
