@@ -11,9 +11,16 @@ phases:
     on-failure: ABORT
     commands:
       # install packer
-      - sudo yum install -y yum-utils
-      - sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
-      - sudo yum -y install packer
+      - echo "Installing HashiCorp Packer..."
+      - curl -qL -o packer.zip https://releases.hashicorp.com/packer/0.12.3/packer_0.12.3_linux_amd64.zip && unzip packer.zip
+      # Give Packer AWS credentials
+      # https://aws.amazon.com/blogs/devops/how-to-create-an-ami-builder-with-aws-codebuild-and-hashicorp-packer/
+      - echo "Configuring AWS credentials"
+      - curl -qL -o aws_credentials.json http://169.254.170.2/$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI > aws_credentials.json
+      - aws configure set region $AWS_REGION
+      - aws configure set aws_access_key_id `./jq -r '.AccessKeyId' aws_credentials.json`
+      - aws configure set aws_secret_access_key `./jq -r '.SecretAccessKey' aws_credentials.json`
+      - aws configure set aws_session_token `./jq -r '.Token' aws_credentials.json`
   pre_build:
     on-failure: ABORT
     commands:
@@ -26,10 +33,8 @@ phases:
   build:
     on-failure: ABORT
     commands:
-      - echo Initializing packer...
-      - packer init packer
       - echo Building AMI...
-      - packer build --force packer
+      - ./packer build --force packer/backend.pkr.hcl
       - bash ./packer/launch_template.sh
   post_build:
     on-failure: ABORT
