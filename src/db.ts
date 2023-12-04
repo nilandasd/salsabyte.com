@@ -1,14 +1,18 @@
 import mongoose, { Mongoose } from "mongoose";
-import { MongoMemoryServer } from 'mongodb-memory-server';
+import { MongoMemoryServer} from 'mongodb-memory-server';
 
 class DB {
   uri: string;
   conn: Mongoose;
+  mongoServer: MongoMemoryServer;
 
   async setUri() {
     switch (process.env.ENV) {
       case "PROD": this.uri = `mongodb://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@mongodb:27017/test?authSource=admin`;
-      case "TEST": this.uri = (await MongoMemoryServer.create()).getUri();
+      case "TEST": {
+        this.mongoServer = await MongoMemoryServer.create();
+        this.uri = this.mongoServer.getUri();
+      }
     }
   }
 
@@ -27,6 +31,7 @@ class DB {
 
   async disconnect() {
     await this.conn.disconnect();
+    if (process.env.ENV == "TEST") await this.mongoServer.stop();
   }
 }
 
