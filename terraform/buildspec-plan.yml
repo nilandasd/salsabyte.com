@@ -13,20 +13,6 @@ phases:
       # install packer
       - echo "Installing HashiCorp Packer..."
       - curl -qL -o packer.zip https://releases.hashicorp.com/packer/1.9.0/packer_1.9.0_linux_amd64.zip && unzip packer.zip -d ./packer
-        #- echo "Installing jq..."
-        #- curl -qL -o jq https://stedolan.github.io/jq/download/linux64/jq && chmod +x ./jq
-      # Give Packer AWS credentials
-      # https://aws.amazon.com/blogs/devops/how-to-create-an-ami-builder-with-aws-codebuild-and-hashicorp-packer/
-      #- echo "Configuring AWS credentials"
-      #- curl -qL -o aws_credentials.json http://169.254.170.2/$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI > aws_credentials.json
-      #- aws configure set region $AWS_REGION
-      #- aws configure set aws_access_key_id `./jq -r '.AccessKeyId' aws_credentials.json`
-      #- aws configure set aws_secret_access_key `./jq -r '.SecretAccessKey' aws_credentials.json`
-      #- aws configure set aws_session_token `./jq -r '.Token' aws_credentials.json`
-      - echo Init packer
-      - ./packer/packer init packer
-      - echo Building AMI...
-      - ./packer/packer build --force packer
   pre_build:
     on-failure: ABORT
     commands:
@@ -39,9 +25,10 @@ phases:
   build:
     on-failure: ABORT
     commands:
+      - echo Init packer
+      - ./packer/packer init packer
       - echo Building AMI...
       - ./packer/packer build --force packer
-      - bash ./packer/launch_template.sh
   post_build:
     on-failure: ABORT
     commands:
