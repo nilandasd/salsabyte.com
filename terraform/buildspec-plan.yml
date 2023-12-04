@@ -12,7 +12,7 @@ phases:
     commands:
       # install packer
       - echo "Installing HashiCorp Packer..."
-      - curl -qL -o packer.zip https://releases.hashicorp.com/packer/0.12.3/packer_0.12.3_linux_amd64.zip && unzip packer.zip
+      - curl -qL -o packer_exe.zip https://releases.hashicorp.com/packer/0.12.3/packer_0.12.3_linux_amd64.zip && unzip packer_exe.zip
       # Give Packer AWS credentials
       # https://aws.amazon.com/blogs/devops/how-to-create-an-ami-builder-with-aws-codebuild-and-hashicorp-packer/
       - echo "Configuring AWS credentials"
@@ -34,7 +34,7 @@ phases:
     on-failure: ABORT
     commands:
       - echo Building AMI...
-      - ./packer build --force packer/backend.pkr.hcl
+      - ./packer_exe build --force packer/backend.pkr.hcl
       - bash ./packer/launch_template.sh
   post_build:
     on-failure: ABORT
