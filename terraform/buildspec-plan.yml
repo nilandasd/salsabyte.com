@@ -30,9 +30,21 @@ phases:
       - echo Building AMI...
       - ./packer/packer build --force packer
       - BACKEND_AMI=`aws ec2 describe-images --filters "Name=name,Values=backend" --query 'Images[0].[ImageId]' --output text`
-      - aws ec2 create-launch-template-version --launch-template-name backend --launch-template-data '{"ImageId": "$BACKEND_AMI"}'
+      - |
+        aws ec2 create-launch-template-version \
+        --launch-template-name backend \
+        --launch-template-data '{"ImageId": "$BACKEND_AMI"}'
   post_build:
     failure: ABORT
     commands:
       - echo Triggering ASG instance refresh...
-      - aws ec2 start-instance-refresh --auto-scaling-group-name backend --desired-configuration '{ "LaunchTemplate": { "LaunchTemplateName": "backend", "Version": "$Latest" } }' --preferences '{ "AutoRollback": "true" }'
+      - |
+        aws ec2 start-instance-refresh \
+        --auto-scaling-group-name backend \
+        --desired-configuration '{ \
+          "LaunchTemplate": { \
+            "LaunchTemplateName": "backend", \
+            "Version": "$Latest" \
+          } \
+        }' \
+        --preferences '{ "AutoRollback": "true" }'
