@@ -26,9 +26,10 @@ phases:
   build:
     on-failure: ABORT
     commands:
+      - Initializing packer...
+      - packer init packer
       - echo Building AMI...
       - packer build --force packer
-
       - bash ./packer/launch_template.sh
   post_build:
     on-failure: ABORT
