@@ -7,4 +7,7 @@ BACKEND_AMI=`aws ec2 describe-images   \
 
 aws ec2 create-launch-template-version \
   --launch-template-name backend \
-  --launch-template-data "{\"ImageId\": \"$BACKEND_AMI\"}"
+  --launch-template-data "{
+      \"ImageId\": \"$BACKEND_AMI\",
+      \"InstanceType\": \"t3.micro\"
+    }"

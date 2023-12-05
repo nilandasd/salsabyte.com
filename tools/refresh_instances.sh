@@ -4,7 +4,7 @@ aws autoscaling start-instance-refresh \
   --auto-scaling-group-name backend \
   --desired-configuration '{
     "LaunchTemplate": {
-      "LaunchTemplateName": "backend"
+      "LaunchTemplateName": "backend",
+      "Version": "$Latest"
     }
-  }' \
-  --preferences '{ "AutoRollback": true }'
+  }'
