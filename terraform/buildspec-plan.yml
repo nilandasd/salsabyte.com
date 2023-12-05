@@ -39,7 +39,7 @@ phases:
     commands:
       - echo Triggering ASG instance refresh...
       - |
-        aws ec2 start-instance-refresh \
+        aws autoscaling start-instance-refresh \
         --auto-scaling-group-name backend \
         --desired-configuration '{ \
           "LaunchTemplate": { \
