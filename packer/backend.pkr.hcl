@@ -59,6 +59,11 @@ build {
   }
 
   provisioner "file" {
+    destination = "/tmp/tools"
+    source      = "./tools"
+  }
+
+  provisioner "file" {
     destination = "/tmp/"
     source      = "./Dockerfile"
   }

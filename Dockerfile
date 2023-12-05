@@ -2,12 +2,16 @@ FROM node:20
 
 WORKDIR /app
 
-COPY . .
+COPY package.json .
 
 RUN npm install
-RUN npm run prep
 
+COPY . .
+
+ARG NODE_ENV=test
+ENV NODE_ENV=$NODE_ENV
 ENV SERVER_PORT=8080
-ENV NODE_ENV=production
 
-CMD ["npm", "start"]
+RUN bash tools/docker_build.sh
+
+CMD ["bash", "tools/docker_entry.sh"]

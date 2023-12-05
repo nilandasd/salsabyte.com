@@ -11,13 +11,13 @@ class Server {
 
   constructor(app: Application) {
     this.app = app;
-    this.port = parseInt(process.env.SERVER_PORT || "8080");
+    this.port = parseInt(process.env.SERVER_PORT || "8080", 10);
     this.server = null;
     this.db = db;
   }
 
   async start() {
-    await db.connect();
+    await db.connect(); // TODO: should db just connect on init?
 
     return new Promise((resolve, reject) => {
         try {
@@ -25,7 +25,7 @@ class Server {
 
           this.server.listen(this.port, () => {
               // tslint:disable-next-line:no-console
-              console.log( `server started at http://localhost:${ this.port }` );
+              console.log(`server started at http://localhost:${ this.port }`);
               resolve(null);
           });
         } catch(err: any) {

@@ -16,10 +16,7 @@ phases:
     on-failure: ABORT
     commands:
       - echo Running tests...
-      - docker-compose build --no-cache
-      - docker-compose run --use-aliases --rm backend
-      - echo Shutting down test environment...
-      - docker-compose down
+      - npm run test
   build:
     on-failure: ABORT
     commands:
