@@ -1,12 +1,12 @@
 import driver from './webDriverHandle';
 import server from '../../src/server';
 
-beforeAll(async () => {
+beforeEach(async () => {
   await server.start();
   await driver.init();
 }, 10_000);
 
-afterAll(async () => {
+afterEach(async () => {
   await server.stop();
   await driver.quit();
 }, 10_000);

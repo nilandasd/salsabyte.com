@@ -13,8 +13,8 @@
     "dev:start": "npm-run-all build debug:start",
     "dev": "nodemon --watch src -e ts,ejs --exec npm run dev:start",
     "debug:start": "node --inspect .",
-    "exec": "node .",
-    "start": "npm-run-all clean tsc copy-assets exec",
+    "prep": "npm-run-all clean tsc copy-assets",
+    "start": "node .",
     "test": "jest --coverage"
   },
   "author": "lando",
