@@ -3,7 +3,7 @@ resource "aws_autoscaling_group" "backend" {
   min_size = 1
   max_size = 3
 
-  health_check_type = "EC2"
+  health_check_type = "ELB"
 
   vpc_zone_identifier = [
     aws_subnet.private_us_east_1a.id,

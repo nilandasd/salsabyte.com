@@ -56,7 +56,6 @@ resource "aws_lb_target_group" "salsabyte" {
 
   health_check {
     enabled             = true
-    port                = 8080
     interval            = 30
     protocol            = "HTTP"
     path                = "/"
