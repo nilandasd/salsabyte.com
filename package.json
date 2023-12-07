@@ -1,7 +1,7 @@
 {
-  "name": "typescript_practice",
+  "name": "salsa_byte",
   "version": "1.0.0",
-  "description": "a simple social media app (to learn type script)",
+  "description": "a website",
   "main": "dist/index.js",
   "scripts": {
     "clean": "rimraf dist/*",
