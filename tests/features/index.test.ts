@@ -3,10 +3,12 @@ import server from '../../src/server';
 
 beforeEach(async () => {
   await server.start();
+  await driver.init();
 }, 10_000);
 
 afterEach(async () => {
   await server.stop();
+  await driver.quit();
 }, 10_000);
 
 describe("Index Page", () => {
