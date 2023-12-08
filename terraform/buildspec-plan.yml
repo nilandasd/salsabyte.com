@@ -28,6 +28,8 @@ phases:
       - ./packer/packer build --force packer
       - echo Creating New Launch Template Version...
       - bash ./tools/update_launch_template.sh
+      - echo Copying '/public' to s3...
+      - bash ./tools/upload_public.sh
   post_build:
     on-failure: ABORT
     commands:

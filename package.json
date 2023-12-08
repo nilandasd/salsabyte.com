@@ -8,11 +8,12 @@
     "copy-assets": "ts-node tools/copyAssets",
     "lint": "tslint --project './src' -c tslint.json -p tsconfig.json --fix",
     "tsc": "tsc",
-    "webpack": "npx webpack",
+    "dev:webpack": "npx webpack --mode development",
+    "prod:webpack": "npx webpack",
     "inspect": "node --inspect .",
 
     "test:build": "npm run dev:build",
-    "dev:build": "npm-run-all clean lint tsc copy-assets webpack",
+    "dev:build": "npm-run-all clean lint tsc copy-assets dev:webpack",
     "prod:build": "npm-run-all clean tsc copy-assets",
 
     "compose:down": "docker compose down",

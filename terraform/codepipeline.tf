@@ -50,10 +50,11 @@ resource "aws_s3_bucket" "codepipeline" {
   // THIS MUST BE A GLOBALLY UNIQUE NAME!!
   // otherwise you may get an cryptic error saying something about an invalid region in a request
   bucket = "${local.project}-codepipeline-bucket"
+  force_destroy = true
 }
 
 resource "aws_s3_bucket_versioning" "codepipeline_bucket" {
-  bucket = aws_s3_bucket.codepipeline.id
+  bucket        = aws_s3_bucket.codepipeline.id
   versioning_configuration {
     status = "Enabled"
   }
@@ -92,7 +93,6 @@ data "aws_iam_policy_document" "codepipeline_policy" {
     resources = [
       aws_s3_bucket.codepipeline.arn,
       "${aws_s3_bucket.codepipeline.arn}/*",
-      aws_codebuild_project.test.arn
     ]
   }
 
@@ -112,20 +112,8 @@ data "aws_iam_policy_document" "codepipeline_policy" {
     ]
 
     resources = [
-      aws_codebuild_project.test.arn
+      aws_codebuild_project.deploy.arn
     ]
-  }
-
-  statement {
-    actions = [
-      "dynamodb:*",
-    ]
-
-    resources = [
-      aws_iam_role.build_project_role.arn,
-    ]
-
-    effect = "Allow"
   }
 
   statement {

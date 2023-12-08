@@ -1,6 +1,4 @@
-resource "aws_codebuild_project" "test" {
-  name           = "test"
-  description    = "This project tests and published the applications docker image"
+resource "aws_codebuild_project" "deploy" {
   service_role = aws_iam_role.build_project_role.arn
 
   artifacts {
