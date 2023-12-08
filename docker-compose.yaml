@@ -1,6 +1,7 @@
 services:
   mongodb:
-    container_name: public.ecr.aws/docker/library/mongo
+    container_name: mongo
+    image: public.ecr.aws/docker/library/mongo
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root 
       - MONGO_INITDB_ROOT_PASSWORD=secret
