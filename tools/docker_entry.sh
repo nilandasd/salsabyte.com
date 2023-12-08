@@ -1,6 +1,7 @@
 if [[ $NODE_ENV = "test" ]]
 then
   npm run test:start
+  exit $?
 fi
 
 if [[ $NODE_ENV = "dev" ]]
