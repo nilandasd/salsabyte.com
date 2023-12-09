@@ -40,7 +40,7 @@ resource "aws_codepipeline" "codepipeline" {
       version          = "1"
 
       configuration = {
-        ProjectName = "test"
+        ProjectName = "deploy"
       }
     }
   }
