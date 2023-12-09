@@ -23,6 +23,7 @@ services:
       - 9229:9229 # port for node inspector
     volumes:
       - ./src:/app/src
+      - ./public:/app/public
     depends_on:
       - selenium
       - mongodb

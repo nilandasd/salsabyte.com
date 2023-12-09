@@ -11,22 +11,19 @@
     "dev:webpack": "npx webpack --mode development",
     "prod:webpack": "npx webpack",
     "inspect": "node --inspect .",
-
     "test:build": "npm run dev:build",
     "dev:build": "npm-run-all clean lint tsc copy-assets dev:webpack",
     "prod:build": "npm-run-all clean tsc copy-assets",
-
     "compose:down": "docker compose down",
     "dev:compose:build": "docker compose build --build-arg NODE_ENV=dev",
     "test:compose:build": "docker compose build --build-arg NODE_ENV=test",
     "compose:up": "docker compose up",
     "compose:run": "docker compose run --use-aliases --rm backend",
-
     "dev": "npm-run-all compose:down dev:compose:build compose:up",
     "test": "npm-run-all compose:down test:compose:build compose:run",
-
+    "dev:restart": "npm-run-all dev:build inspect",
     "test:start": "jest --coverage",
-    "dev:start": "nodemon --watch src -e ts,ejs --exec npm run inspect",
+    "dev:start": "nodemon --watch src -e ts,ejs --exec npm run dev:restart",
     "start": "node ."
   },
   "author": "lando",
@@ -55,6 +52,8 @@
     "nodemon": "^2.0.22",
     "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.2",
+    "sass": "^1.69.5",
+    "sass-loader": "^13.3.2",
     "shelljs": "^0.8.5",
     "style-loader": "^3.3.3",
     "supertest": "^6.3.3",

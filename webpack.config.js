@@ -11,13 +11,13 @@ module.exports = {
       },
       {
 
-        test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
+        test: /\.s[ac]ss$/,
+        use: ['style-loader', 'css-loader', "sass-loader"],
       },
     ],
   },
   resolve: {
-    extensions: ['.ts', '.js', '.css'],
+    extensions: ['.ts', '.js', '.scss'],
   },
   output: {
     filename: 'main.js',

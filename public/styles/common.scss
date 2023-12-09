@@ -1,0 +1,19 @@
+.bold {
+  font-weight: bold;
+}
+
+.large {
+  font-size: 25px;
+}
+
+.ml {
+  margin-left: $gs;
+}
+
+.ml-2 {
+  margin-left: $gs * 2;
+}
+
+.flex {
+  @include flex;
+}
