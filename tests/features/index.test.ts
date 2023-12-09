@@ -13,9 +13,9 @@ afterEach(async () => {
 
 describe("Index Page", () => {
   it('renders the page', async () => {
-    const header = await driver.querySelector('.header')
+    const header = await driver.querySelector('.title')
     const actual = await header.getText()
-    const expected = 'Index Page :)'
+    const expected = 'SalsaByte'
     expect(actual).toEqual(expected)
   }, 30_000);
 });
