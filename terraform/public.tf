@@ -94,14 +94,4 @@ data "aws_iam_policy_document" "read_public_bucket" {
       identifiers = [aws_cloudfront_origin_access_identity.public.iam_arn]
     }
   }
-
-  statement {
-    actions   = ["s3:PutObject"]
-    resources = [aws_s3_bucket.public.arn]
-
-    principals {
-      type        = "AWS"
-      identifiers = [aws_codebuild_project.deploy.iam_arn]
-    }
-  }
 }

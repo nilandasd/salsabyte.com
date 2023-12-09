@@ -2,7 +2,6 @@ resource "aws_autoscaling_group" "backend" {
   name     = "backend"
   min_size = 1
   max_size = 3
-
   health_check_type = "ELB"
 
   vpc_zone_identifier = [
@@ -29,7 +28,7 @@ resource "aws_autoscaling_policy" "backend" {
   name                   = "backend"
   policy_type            = "TargetTrackingScaling"
   autoscaling_group_name = aws_autoscaling_group.backend.name
-  estimated_instance_warmup = 300
+  estimated_instance_warmup = 60
 
   target_tracking_configuration {
     predefined_metric_specification {

@@ -1,4 +1,5 @@
 resource "aws_codebuild_project" "deploy" {
+  name           = "deploy"
   service_role = aws_iam_role.build_project_role.arn
 
   artifacts {
