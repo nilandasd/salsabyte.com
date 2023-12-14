@@ -36,8 +36,36 @@ resource "aws_lb_listener" "tls" {
     type             = "forward"
     target_group_arn = aws_lb_target_group.salsabyte.arn
   }
+}
 
-  depends_on = [aws_acm_certificate_validation.www]
+resource "aws_lb_listener_certificate" "main" {
+  listener_arn    = aws_lb_listener.tls.arn
+  certificate_arn = aws_acm_certificate.main.arn
+}
+
+resource "aws_lb_listener_certificate" "www" {
+  listener_arn    = aws_lb_listener.tls.arn
+  certificate_arn = aws_acm_certificate.www.arn
+}
+
+resource "aws_lb_listener_rule" "naked_to_www" {
+  listener_arn = aws_lb_listener.tls.arn
+  priority     = 1
+
+  action {
+    type = "redirect"
+
+    redirect {
+      host        = "www.#{host}"
+      status_code = "HTTP_301"
+    }
+  }
+
+  condition {
+    host_header {
+      values = ["salsabyte.com"]
+    }
+  }
 }
 
 resource "aws_lb_target_group" "salsabyte" {
